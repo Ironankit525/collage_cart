@@ -1000,14 +1000,6 @@
                 const contactBtn = document.createElement('button'); contactBtn.className = 'btn btn-ghost'; contactBtn.textContent = 'Contact Seller';
                 contactBtn.addEventListener('click', () => openContactModal(p));
                 actions.append(contactBtn);
-                // only owner can edit/delete
-                if (p.ownerId === deviceId) {
-                    const editBtn = document.createElement('button'); editBtn.className = 'icon-btn'; editBtn.title = 'Edit';
-                    editBtn.innerHTML = '✏️'; editBtn.addEventListener('click', () => openSellModal(p));
-                    const delBtn = document.createElement('button'); delBtn.className = 'icon-btn'; delBtn.title = 'Delete';
-                    delBtn.innerHTML = '🗑️'; delBtn.addEventListener('click', () => deleteProduct(p.id));
-                    actions.append(editBtn, delBtn);
-                }
                 card.append(img, title, desc, sellerRow, meta, actions);
                 grid.appendChild(card);
             }
