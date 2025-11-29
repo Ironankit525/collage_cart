@@ -293,26 +293,60 @@ function openSellModal(product = null) {
 function openCollabModal(collab = null) {
     const isEdit = !!collab;
     const html = `
-        <h3 id="modal-title">${isEdit ? 'Edit Invite' : 'Create Invitation'}</h3>
-        <form id="collab-form">
-          <div class="form-row">
-            <div class="form-col">
-              <label>Title<input class="form-input" name="title" required value="${collab ? escapeHtml(collab.title) : ''}"/></label>
-              <div style="display:flex;gap:10px">
-                <label style="flex:1">Category (enter your own)<input class="form-input" name="cat" value="${collab ? escapeHtml(collab.cat) : ''}" placeholder="e.g. Hackathon, Cricket, Study" /></label>
-                <label style="flex:1">Contact<input class="form-input" name="contact" value="${collab ? escapeHtml(collab.contact) : ''}"/></label>
+        <div class="modal-header">
+          <h3 id="modal-title">${isEdit ? '✏️ Edit Invite' : '🤝 Create Invitation'}</h3>
+          <button class="modal-close" id="collab-modal-close" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <form id="collab-form">
+            <div class="form-row">
+              <div class="form-col">
+                <div class="form-group">
+                  <label for="collab-title">Title</label>
+                  <input class="form-input" id="collab-title" name="title" required placeholder="e.g. Need 2 devs for Hackathon" value="${collab ? escapeHtml(collab.title) : ''}"/>
+                </div>
+                
+                <div style="display:flex;gap:12px">
+                  <div class="form-group" style="flex:1">
+                    <label for="collab-cat">Category</label>
+                    <input class="form-input" id="collab-cat" name="cat" list="cat-suggestions" value="${collab ? escapeHtml(collab.cat) : ''}" placeholder="Type or select..." />
+                    <datalist id="cat-suggestions">
+                      <option value="Hackathon">
+                      <option value="Sports">
+                      <option value="Study Group">
+                      <option value="Project">
+                      <option value="Event">
+                      <option value="Gaming">
+                    </datalist>
+                  </div>
+                  <div class="form-group" style="flex:1">
+                    <label for="collab-contact">Contact</label>
+                    <input class="form-input" id="collab-contact" name="contact" required placeholder="Email or Phone" value="${collab ? escapeHtml(collab.contact) : ''}"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="collab-desc">Description</label>
+                  <textarea class="form-input" id="collab-desc" name="desc" rows="4" placeholder="Describe what you are looking for, time, place, etc.">${collab ? escapeHtml(collab.desc) : ''}</textarea>
+                </div>
               </div>
-              <label>Description<textarea class="form-input" name="desc" rows="3">${collab ? escapeHtml(collab.desc) : ''}</textarea></label>
             </div>
-          </div>
+          </form>
+        </div>
+        <div class="modal-footer">
           <div class="footer-actions">
             <button type="button" class="btn btn-ghost" id="cancel-collab">Cancel</button>
-            <button type="submit" class="btn btn-primary">${isEdit ? 'Save' : 'Create'}</button>
+            <button type="submit" form="collab-form" class="btn btn-primary">${isEdit ? '💾 Save Changes' : '🚀 Post Invite'}</button>
           </div>
-        </form>
+        </div>
       `;
     openModal(html);
+
+    // Close handlers
+    qs('#collab-modal-close').addEventListener('click', closeModal);
     qs('#cancel-collab').addEventListener('click', closeModal);
+
+    // Form submit
     qs('#collab-form').addEventListener('submit', (ev) => {
         ev.preventDefault();
         const fd = new FormData(ev.currentTarget);
@@ -326,6 +360,12 @@ function openCollabModal(collab = null) {
             ts: collab ? collab.ts : Date.now(),
             ownerId: collab ? collab.ownerId : deviceId
         };
+
+        if (!obj.title || !obj.contact) {
+            alert('Please fill Title and Contact fields');
+            return;
+        }
+
         if (collab) {
             state.collabs = state.collabs.map(c => c.id === collab.id ? obj : c);
         } else {
