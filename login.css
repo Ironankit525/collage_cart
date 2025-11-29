@@ -3,20 +3,20 @@
             --bg-primary-dark: linear-gradient(135deg, #1a1f3a 0%, #2d1b3d 100%);
             --container-bg: #ffffff;
             --container-bg-dark: #1e293b;
-            --text-primary: #333333;
-            --text-primary-dark: #e2e8f0;
-            --text-secondary: #888888;
+            --text-primary: #1e293b;
+            --text-primary-dark: #f1f5f9;
+            --text-secondary: #64748b;
             --text-secondary-dark: #94a3b8;
-            --text-label: #555555;
+            --text-label: #475569;
             --text-label-dark: #cbd5e1;
-            --input-bg: #f9f9f9;
+            --input-bg: #ffffff;
             --input-bg-dark: #0f172a;
-            --input-border: #e0e0e0;
+            --input-border: #e2e8f0;
             --input-border-dark: #334155;
             --input-focus-border: #667eea;
             --input-focus-border-dark: #818cf8;
-            --input-focus-shadow: rgba(102, 126, 234, 0.1);
-            --input-focus-shadow-dark: rgba(129, 140, 248, 0.2);
+            --input-focus-shadow: rgba(102, 126, 234, 0.15);
+            --input-focus-shadow-dark: rgba(129, 140, 248, 0.25);
             --logo-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --logo-gradient-dark: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
             --logo-shadow: rgba(102, 126, 234, 0.4);
@@ -25,8 +25,10 @@
             --btn-gradient-dark: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
             --btn-shadow: rgba(102, 126, 234, 0.4);
             --btn-shadow-dark: rgba(129, 140, 248, 0.5);
-            --container-shadow: rgba(0, 0, 0, 0.3);
-            --container-shadow-dark: rgba(0, 0, 0, 0.6);
+            --container-shadow: rgba(0, 0, 0, 0.1);
+            --container-shadow-dark: rgba(0, 0, 0, 0.5);
+            --link-color: #667eea;
+            --link-color-dark: #818cf8;
         }
 
         * {
@@ -52,13 +54,14 @@
 
         .container {
             background: var(--container-bg);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px var(--container-shadow);
-            padding: 60px 40px;
-            max-width: 500px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px var(--container-shadow), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            padding: 48px 40px;
+            max-width: 440px;
             width: 100%;
             position: relative;
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         body.dark .container {
@@ -81,25 +84,23 @@
         }
 
         .logo {
-            width: 80px;
-            height: 80px;
-            background: var(--logo-gradient);
-            border-radius: 50%;
+            width: 72px;
+            height: 72px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            font-weight: bold;
-            color: white;
             animation: logoFloat 3s ease-in-out infinite;
-            box-shadow: 0 10px 30px var(--logo-shadow);
             position: relative;
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        body.dark .logo {
-            background: var(--logo-gradient-dark);
-            box-shadow: 0 10px 30px var(--logo-shadow-dark);
+        .logo svg {
+            filter: drop-shadow(0 4px 12px var(--logo-shadow));
+            transition: filter 0.3s ease;
+        }
+
+        body.dark .logo svg {
+            filter: drop-shadow(0 4px 12px var(--logo-shadow-dark));
         }
 
         @keyframes logoFloat {
@@ -112,13 +113,14 @@
         }
 
         .college-name {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             overflow: hidden;
-            height: 40px;
+            height: 36px;
             transition: color 0.3s ease;
+            letter-spacing: -0.5px;
         }
 
         body.dark .college-name {
@@ -151,11 +153,13 @@
 
         .subtitle {
             color: var(--text-secondary);
-            font-size: 14px;
-            margin-top: 15px;
+            font-size: 15px;
+            margin-top: 12px;
             animation: fadeIn 1s ease-out 0.8s forwards;
             opacity: 0;
             transition: color 0.3s ease;
+            font-weight: 400;
+            line-height: 1.5;
         }
 
         body.dark .subtitle {
@@ -171,8 +175,12 @@
             }
         }
 
+        .login-form {
+            margin-top: 40px;
+        }
+
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 24px;
             animation: slideInUp 0.6s ease-out forwards;
             opacity: 0;
         }
@@ -197,8 +205,10 @@
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
             color: var(--text-label);
             font-weight: 600;
             font-size: 14px;
@@ -209,15 +219,41 @@
             color: var(--text-label-dark);
         }
 
+        .label-icon {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-focus-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--input-focus-border);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        body.dark .input-focus-line {
+            background: var(--input-focus-border-dark);
+        }
+
         input {
             width: 100%;
             padding: 14px 16px;
             border: 2px solid var(--input-border);
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 15px;
             transition: all 0.3s ease;
             background: var(--input-bg);
             color: var(--text-primary);
+            font-family: inherit;
+            border-bottom: 2px solid var(--input-border);
         }
 
         body.dark input {
@@ -228,41 +264,67 @@
 
         body.dark input::placeholder {
             color: var(--text-secondary-dark);
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         input:focus {
             outline: none;
             border-color: var(--input-focus-border);
             background: var(--container-bg);
-            box-shadow: 0 0 0 3px var(--input-focus-shadow);
+            box-shadow: 0 0 0 4px var(--input-focus-shadow);
+            transform: translateY(-1px);
+        }
+
+        input:focus + .input-focus-line {
+            width: 100%;
         }
 
         body.dark input:focus {
             border-color: var(--input-focus-border-dark);
             background: var(--input-bg-dark);
-            box-shadow: 0 0 0 3px var(--input-focus-shadow-dark);
+            box-shadow: 0 0 0 4px var(--input-focus-shadow-dark);
+        }
+
+        input:hover:not(:focus) {
+            border-color: var(--input-focus-border);
+            opacity: 0.8;
+        }
+
+        body.dark input:hover:not(:focus) {
+            border-color: var(--input-focus-border-dark);
+        }
+
+        .login-link {
+            text-decoration: none;
+            display: block;
+            width: 100%;
         }
 
         .login-btn {
             width: 100%;
-            padding: 14px;
+            padding: 16px 24px;
             background: var(--btn-gradient);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             animation: slideInUp 0.6s ease-out 1.4s forwards;
             opacity: 0;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px var(--btn-shadow);
         }
 
         body.dark .login-btn {
             background: var(--btn-gradient-dark);
+            box-shadow: 0 4px 12px var(--btn-shadow-dark);
         }
 
         .login-btn::before {
@@ -273,7 +335,7 @@
             width: 100%;
             height: 100%;
             background: rgba(255, 255, 255, 0.2);
-            transition: left 0.3s ease;
+            transition: left 0.4s ease;
         }
 
         .login-btn:hover::before {
@@ -282,15 +344,23 @@
 
         .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px var(--btn-shadow);
+            box-shadow: 0 8px 20px var(--btn-shadow);
         }
 
         body.dark .login-btn:hover {
-            box-shadow: 0 10px 25px var(--btn-shadow-dark);
+            box-shadow: 0 8px 20px var(--btn-shadow-dark);
         }
 
         .login-btn:active {
             transform: translateY(0);
+        }
+
+        .login-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .login-btn:hover svg {
+            transform: translateX(4px);
         }
 
         .theme-toggle {
@@ -336,9 +406,114 @@
             transform: rotate(15deg);
         }
 
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        body.dark .remember-me {
+            color: var(--text-secondary-dark);
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--input-focus-border);
+        }
+
+        body.dark .remember-me input[type="checkbox"] {
+            accent-color: var(--input-focus-border-dark);
+        }
+
+        .forgot-link {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+
+        body.dark .forgot-link {
+            color: var(--link-color-dark);
+        }
+
+        .forgot-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 24px 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        body.dark .divider {
+            color: var(--text-secondary-dark);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--input-border);
+        }
+
+        body.dark .divider::before,
+        body.dark .divider::after {
+            border-bottom-color: var(--input-border-dark);
+        }
+
+        .divider span {
+            padding: 0 16px;
+        }
+
+        .signup-prompt {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        body.dark .signup-prompt {
+            color: var(--text-secondary-dark);
+        }
+
+        .signup-link {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        body.dark .signup-link {
+            color: var(--link-color-dark);
+        }
+
+        .signup-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
         @media (max-width: 600px) {
             .container {
-                padding: 40px 25px;
+                padding: 36px 24px;
+                border-radius: 20px;
             }
 
             .college-name {
@@ -346,9 +521,13 @@
             }
 
             .logo {
-                width: 70px;
-                height: 70px;
-                font-size: 35px;
+                width: 64px;
+                height: 64px;
+            }
+
+            .logo svg {
+                width: 40px;
+                height: 40px;
             }
 
             .theme-toggle {
@@ -357,5 +536,9 @@
                 width: 40px;
                 height: 40px;
                 font-size: 18px;
+            }
+
+            .login-form {
+                margin-top: 32px;
             }
         }
