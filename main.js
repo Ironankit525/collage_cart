@@ -250,14 +250,22 @@ function renderProducts(products) {
             editBtn.innerHTML = '<img src="./edit-icon.png" alt="Edit" />';
             editBtn.title = 'Edit';
             editBtn.addEventListener('click', () => {
-                toast('Edit feature coming soon for products');
+                openSellModal(p);
             });
 
             const delBtn = document.createElement('button');
             delBtn.className = 'btn-action btn-delete';
             delBtn.innerHTML = '<img src="./delete-icon.png" alt="Delete" />';
             delBtn.title = 'Delete';
-            delBtn.addEventListener('click', () => deleteItem(p.id));
+            delBtn.addEventListener('click', async () => {
+                if (confirm('Are you sure you want to delete this item?')) {
+                    const success = await deleteItem(p.id);
+                    if (success) {
+                        toast('Item deleted');
+                        await refreshData();
+                    }
+                }
+            });
 
             actions.append(editBtn, delBtn);
         } else {
