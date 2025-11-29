@@ -1,10 +1,11 @@
 {
   "name": "collage_cart",
   "version": "1.0.0",
-  "description": "",
+  "description": "Campus marketplace app for buying, selling, and collaboration",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,10 @@
     "url": "https://github.com/divyam-jha123/collage_cart/issues"
   },
   "homepage": "https://github.com/divyam-jha123/collage_cart#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.86.0"
+  },
   "devDependencies": {
-    "vite": "^7.2.4"
+    "vite": "^5.0.0"
   }
 }
