@@ -75,9 +75,22 @@ body {
         opacity: 0;
         transform: translateX(-50%) translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -254,7 +267,7 @@ input:focus {
     transform: translateY(-1px);
 }
 
-input:focus + .input-focus-line {
+input:focus+.input-focus-line {
     width: 100%;
 }
 
@@ -317,6 +330,30 @@ body.dark .login-btn {
     transition: left 0.4s ease;
 }
 
+.google-btn {
+    background: white;
+    color: #3c4043;
+    border: 1px solid var(--input-border);
+    margin-bottom: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+body.dark .google-btn {
+    background: var(--input-bg-dark);
+    color: var(--text-primary-dark);
+    border-color: var(--input-border-dark);
+}
+
+.google-btn:hover {
+    background: #f8fafc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+body.dark .google-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
 .login-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px var(--btn-shadow);
@@ -332,6 +369,7 @@ body.dark .login-btn:hover {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
