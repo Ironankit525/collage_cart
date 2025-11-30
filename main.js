@@ -247,7 +247,7 @@ function renderProducts(products) {
         if (p.ownerId === currentUser?.id) {
             const editBtn = document.createElement('button');
             editBtn.className = 'btn-action btn-edit';
-            editBtn.innerHTML = '<img src="./edit-icon.png" alt="Edit" />';
+            editBtn.innerHTML = '<img src="/edit-icon.png" alt="Edit" />';
             editBtn.title = 'Edit';
             editBtn.addEventListener('click', () => {
                 openSellModal(p);
@@ -255,7 +255,7 @@ function renderProducts(products) {
 
             const delBtn = document.createElement('button');
             delBtn.className = 'btn-action btn-delete';
-            delBtn.innerHTML = '<img src="./delete-icon.png" alt="Delete" />';
+            delBtn.innerHTML = '<img src="/delete-icon.png" alt="Delete" />';
             delBtn.title = 'Delete';
             delBtn.addEventListener('click', async () => {
                 if (confirm('Are you sure you want to delete this item?')) {
@@ -365,13 +365,13 @@ function renderCollabs(collabs, filter = null) {
         if (c.ownerId === currentUser?.id) {
             const editBtn = document.createElement('button');
             editBtn.className = 'btn-action btn-edit';
-            editBtn.innerHTML = '<img src="./edit-icon.png" alt="Edit" />';
+            editBtn.innerHTML = '<img src="/edit-icon.png" alt="Edit" />';
             editBtn.title = 'Edit';
             editBtn.addEventListener('click', () => openCollabModal(c));
 
             const delBtn = document.createElement('button');
             delBtn.className = 'btn-action btn-delete';
-            delBtn.innerHTML = '<img src="./delete-icon.png" alt="Delete" />';
+            delBtn.innerHTML = '<img src="/delete-icon.png" alt="Delete" />';
             delBtn.title = 'Delete';
             delBtn.addEventListener('click', () => deleteCollab(c.id));
 
