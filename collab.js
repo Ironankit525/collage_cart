@@ -6,7 +6,7 @@ let collabs = [];
 
 /************ Utility Functions ************/
 const qs = (sel) => document.querySelector(sel);//hi bro how are you 
-const qsa = (sel) => document.querySelectorAll(sel);
+const qsa = (sel) => document.querySelectorAll(sel);//if not
 
 function escapeHtml(text) {
     if (!text) return '';
