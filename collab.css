@@ -6,7 +6,7 @@
     padding: 32px 24px;
     border-radius: var(--radius);
     margin-bottom: 24px;
-    text-align: center;
+    text-align: center;//ok
 }
 
 .collab-page-header h1 {
