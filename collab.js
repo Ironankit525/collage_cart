@@ -15,7 +15,8 @@ function escapeHtml(text) {
     return div.innerHTML;//hello
 }
 
-function timeAgo(ts) {
+function timeAgo(ts) {// ok bro i am ok , how are you 
+    
     const now = Date.now();
     const diff = now - ts;
     const mins = Math.floor(diff / 60000);
